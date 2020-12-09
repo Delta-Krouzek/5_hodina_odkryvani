@@ -51,9 +51,25 @@ namespace _5_hodina_odkryvani
             {
                 for (int j = 0; j < pole.GetLength(1); j++)
                 {
-
+                    byte barva = (byte)rnd.Next(1, 255);
+                    pole[i, j] = new Rectangle();
+                    pole[i, j].Fill = new SolidColorBrush(Color.FromRgb(barva, barva, barva));
+                    pole[i, j].StrokeThickness = 0;
+                    pole[i, j].Height = plocha.Height / pole.GetLength(0);
+                    pole[i, j].Width = plocha.Width / pole.GetLength(1);
+                    Grid.SetColumn(pole[i, j], j);
+                    Grid.SetRow(pole[i, j], i);
+                    Grid.SetZIndex(pole[i, j], 3);
+                    plocha.Children.Add(pole[i, j]);
+                    pole[i, j].MouseDown += MainWindow_MouseDown;
                 }
             }
+        }
+
+        private void MainWindow_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle rtg = (Rectangle)sender;
+            rtg.Fill = Brushes.Transparent;
         }
     }
 }
